@@ -1,0 +1,53 @@
+---
+interface Props {
+  headings: { depth: number; slug: string; text: string }[];
+}
+
+const { headings } = Astro.props;
+---
+
+<div
+  class="toc-container sticky top-24 w-64 hidden xl:block transition-all duration-300 hover:opacity-100 opacity-70"
+>
+  <div class="bg-base-200 rounded-lg p-4">
+    <h2 class="text-lg font-semibold mb-4">Table of Contents</h2>
+    <nav class="toc">
+      <ul class="space-y-2">
+        {
+          headings.map((heading) => (
+            <li
+              class={`${
+                heading.depth === 2 ? 'ml-0' : 'ml-4'
+              } hover:text-primary transition-colors`}
+            >
+              <a href={`#${heading.slug}`} class="block py-1 text-sm">
+                {heading.text}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const links = document.querySelectorAll('.toc a');
+    
+    links.forEach((link) => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute('href')?.slice(1);
+        const target = document.getElementById(targetId || '');
+        
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+          });
+        }
+      });
+    });
+  });
+</script>
