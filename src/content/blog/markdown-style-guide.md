@@ -3,7 +3,6 @@ title: "Your Post Title"
 description: "A brief description of your post"
 pubDate: 2024-03-14
 updatedDate: 2024-03-15
-featuredImage: "/images/post-image.jpg"
 categories: ["Technology", "Programming"]
 tags: ["JavaScript", "Web Development"]
 badges: ["New", "Featured"]

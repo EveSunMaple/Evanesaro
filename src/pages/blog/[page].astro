@@ -1,16 +1,16 @@
 ---
-import { getCollection } from 'astro:content';
-import Layout from '../../layouts/Layout.astro';
-import BlogPostCard from '../../components/BlogPostCard.astro';
-import Pagination from '../../components/Pagination.astro';
+import { getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import BlogCard from "../../components/BlogCard.astro";
+import Pagination from "../../components/Pagination.astro";
 
 export async function getStaticPaths({ paginate }) {
-  const posts = await getCollection('blog', ({ data }) => {
+  const posts = await getCollection("blog", ({ data }) => {
     return import.meta.env.PROD ? !data.draft : true;
   });
 
   const sortedPosts = posts.sort(
-    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
   );
 
   return paginate(sortedPosts, { pageSize: 6 });
@@ -26,7 +26,19 @@ const { page } = Astro.props;
   <div class="max-w-6xl mx-auto">
     <h1 class="text-4xl font-bold mb-8">Blog</h1>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      {page.data.map((post) => <BlogPostCard post={post} />)}
+      {
+        page.data.map((post) => (
+          <BlogCard
+            title={post.data.title}
+            description={post.data.description}
+            date={post.data.pubDate}
+            categories={post.data.categories}
+            tags={post.data.tags}
+            thumbnail={post.data.featuredImage}
+            slug={post.slug}
+          />
+        ))
+      }
     </div>
     <Pagination
       currentPage={page.currentPage}
