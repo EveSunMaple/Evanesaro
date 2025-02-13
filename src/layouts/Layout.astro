@@ -15,7 +15,7 @@ const { title, description, image } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="zh" class="transition bg-base-300" data-theme="light">
+<html lang="zh" class="bg-base-300" data-theme="light">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
@@ -23,7 +23,13 @@ const { title, description, image } = Astro.props;
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
-
+    <script is:inline>
+      (function () {
+        setTimeout(() => {
+          document.documentElement.classList.add("transition ");
+        }, 100);
+      })();
+    </script>
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
