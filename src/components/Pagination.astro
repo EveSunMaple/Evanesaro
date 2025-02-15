@@ -1,4 +1,6 @@
 ---
+import { Icon } from "astro-icon/components";
+
 interface Props {
   currentPage: number;
   totalPages: number;
@@ -15,8 +17,9 @@ const nextUrl = currentPage < totalPages ? `${baseUrl}/${currentPage + 1}` : nul
   {currentPage > 1 && (
     <a
       href={prevUrl}
-      class="btn btn-primary btn-outline"
+      class="btn btn-primary btn-outline gap-2"
     >
+      <Icon name="lucide:chevron-left" class="h-4 w-4" />
       Previous
     </a>
   )}
@@ -35,9 +38,10 @@ const nextUrl = currentPage < totalPages ? `${baseUrl}/${currentPage + 1}` : nul
   {nextUrl && (
     <a
       href={nextUrl}
-      class="btn btn-primary btn-outline"
+      class="btn btn-primary btn-outline gap-2"
     >
       Next
+      <Icon name="lucide:chevron-right" class="h-4 w-4" />
     </a>
   )}
 </div>

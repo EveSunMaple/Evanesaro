@@ -1,4 +1,6 @@
 ---
+import { Icon } from "astro-icon/components";
+
 interface Props {
   headings: { depth: number; slug: string; text: string }[];
 }
@@ -7,18 +9,21 @@ const { headings } = Astro.props;
 ---
 
 <div
-  class="toc-container sticky top-24 transition-all duration-300 hover:opacity-100 opacity-70"
+  class="toc-container sticky top-24 bg-base-200/50 backdrop-blur-sm rounded-2xl shadow-lg p-4 transition"
 >
-  <div class="bg-base-200 rounded-lg p-4 max-h-[calc(100vh-8rem)] overflow-y-auto">
-    <h2 class="text-lg font-semibold mb-4">Table of Contents</h2>
+  <h2 class="text-lg font-semibold mb-4 flex items-center gap-2">
+    <Icon name="lucide:list" class="h-5 w-5" />
+    Table of Contents
+  </h2>
+  <div class="p-4 max-h-[calc(90vh-8rem)] overflow-y-auto" id="toc-box">
     <nav class="toc">
-      <ul class="space-y-2">
+      <ul class="space-y-2" id="toc-list">
         {
           headings.map((heading) => (
             <li
               class={`${
-                heading.depth === 2 ? 'ml-0' : 'ml-4'
-              } hover:text-primary transition-colors duration-200`}
+                heading.depth === 2 ? "ml-0" : "ml-4"
+              } hover:text-primary`}
             >
               <a
                 href={`#${heading.slug}`}
@@ -36,115 +41,70 @@ const { headings } = Astro.props;
 </div>
 
 <script>
-  let observer: IntersectionObserver;
-  let activeHeading: string | null = null;
-  
+  let observer;
+
   function updateToc() {
-    const headings = Array.from(document.querySelectorAll('h2, h3, h4, h5, h6'));
-    const tocItems = document.querySelectorAll('.toc-item');
-    
-    if (observer) {
-      observer.disconnect();
-    }
-    
+    const headings = Array.from(
+      document.querySelectorAll("h2, h3, h4, h5, h6"),
+    );
+    const tocItems = document.querySelectorAll(".toc-item");
+    const tocBox = document.getElementById("toc-box");
+
+    if (observer) observer.disconnect();
+
     observer = new IntersectionObserver(
       (entries) => {
+        let found = false;
         entries.forEach((entry) => {
-          const id = entry.target.getAttribute('id');
+          const id = entry.target.getAttribute("id");
           const tocItem = document.querySelector(`[data-heading="${id}"]`);
-          
-          if (tocItem) {
-            if (entry.isIntersecting) {
-              // Remove active state from previous heading
-              if (activeHeading && activeHeading !== id) {
-                const prevItem = document.querySelector(`[data-heading="${activeHeading}"]`);
-                prevItem?.classList.remove('text-primary', 'font-medium');
-              }
-              
-              // Set new active heading
-              activeHeading = id;
-              tocItem.classList.add('text-primary', 'font-medium');
-            }
+
+          if (tocItem && entry.isIntersecting && !found) {
+            found = true;
+
+            document
+              .querySelector(".toc-item.active")
+              ?.classList.remove("text-primary", "font-medium", "active");
+            tocItem.classList.add("text-primary", "font-medium", "active");
+
+            tocBox.scrollTo({
+              top: tocItem.offsetTop - 150,
+              behavior: "smooth",
+            });
           }
         });
       },
       {
-        rootMargin: '-100px 0px -66%',
-        threshold: [0, 1.0],
-      }
+        rootMargin: "-50px 0px -75%",
+        threshold: [0.1, 0.5, 1.0],
+      },
     );
-    
+
     headings.forEach((heading) => observer.observe(heading));
   }
-  
-  // Smooth scroll
-  document.addEventListener('DOMContentLoaded', () => {
-    updateToc();
-    
-    const tocLinks = document.querySelectorAll('.toc a');
-    tocLinks.forEach((link) => {
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
-        const targetId = link.getAttribute('href')?.slice(1);
-        const target = document.getElementById(targetId || '');
-        
-        if (target) {
-          // Smooth scroll with offset for fixed header
-          const headerOffset = 100;
-          const elementPosition = target.getBoundingClientRect().top;
-          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
+  document.addEventListener("DOMContentLoaded", () => {
+    updateToc();
+
+    document.querySelectorAll(".toc a").forEach((link) => {
+      link.addEventListener("click", (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute("href").slice(1);
+        const target = document.getElementById(targetId);
+
+        if (target) {
           window.scrollTo({
-            top: offsetPosition,
-            behavior: 'smooth'
+            top: target.getBoundingClientRect().top + window.scrollY - 80,
+            behavior: "smooth",
           });
-          
-          // Update URL without scrolling
-          history.pushState(null, '', `#${targetId}`);
+
+          history.pushState(null, "", `#${targetId}`);
         }
       });
     });
+
+    window.addEventListener("popstate", updateToc);
   });
-  
-  // Update on dynamic content changes
-  document.addEventListener('astro:after-swap', updateToc);
+
+  document.addEventListener("astro:after-swap", updateToc);
 </script>
-
-<style>
-  .toc-container {
-    scrollbar-width: thin;
-    scrollbar-color: hsl(var(--bc) / 0.2) transparent;
-    position: sticky;
-    top: 6rem;
-    height: fit-content;
-    max-height: calc(100vh - 8rem);
-  }
-  
-  .toc-container::-webkit-scrollbar {
-    width: 6px;
-  }
-  
-  .toc-container::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  
-  .toc-container::-webkit-scrollbar-thumb {
-    background-color: hsl(var(--bc) / 0.2);
-    border-radius: 3px;
-  }
-  
-  .toc-container::-webkit-scrollbar-thumb:hover {
-    background-color: hsl(var(--bc) / 0.3);
-  }
-
-  .toc-item {
-    display: block;
-    text-decoration: none;
-    color: inherit;
-    transition: all 0.2s ease-in-out;
-  }
-
-  .toc-item:hover {
-    transform: translateX(4px);
-  }
-</style>

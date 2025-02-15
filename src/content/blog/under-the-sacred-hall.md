@@ -10,26 +10,242 @@ badges: ["New", "Featured"]
 
 Your post content here...
 
-Some people are keen on traveling to various places to "check in," others shuttle between exhibitions and events, while others chase after trending topics, seeking novel and exciting experiences. Through different means, they encounter fresh and diverse things. They proclaim, "I’ve seen the world."
+Here is a sample of some basic Markdown syntax that can be used when writing Markdown content in Astro.
 
-Reading the passage above, how would you structure your essay? It seems too simple. "Seeing the world is not just about exploring the external but enriching the inner self." Or, "The approach and purpose of broadening horizons should complement each other and not deviate from the original intent." The list goes on. Indeed, this material as an exam topic feels overly straightforward: strikingly apparent counterexamples and shallow behavior leave little room for additional arguments. I understand this reasoning, yet I don’t dare to write it this way—neither the old me nor the me in an exam room would hesitate like this. But I simply don’t understand: while striving for the ultimate within and eliminating superficial distractions is admirable, have we perhaps become overly fixated on an unattainable pinnacle? To the extent that we scorn such behavior, refuting it with irrefutable truths, and dare not take another step without properly contemplating what "seeing the world" truly means?
+## Headings
 
-What is "irrefutable truth"? I think it’s likely the most precious thing in the "sacred hall"—a truth untainted by interference, detached from worldly distractions. And the phantoms dwelling in this hall are, naturally, those "sages"—embodiments of truth for those below to emulate. However, sages cannot proclaim themselves as such, or according to truth, they would no longer qualify. Thus, to this day, I’ve never encountered a living sage, only glimpsed them occasionally on bulletin boards or in textbooks.
+The following HTML `<h1>`—`<h6>` elements represent six levels of section headings. `<h1>` is the highest section level while `<h6>` is the lowest.
 
-Back to the topic. Honestly, if someone truly toured the world, pursued trends, and experienced novel things, I would admire them from the bottom of my heart. Because I haven’t done so myself, "seeing the world through its myriad things" is a crucial pathway to broaden one’s horizons. Simply put, "observing externalities" is a _necessary condition_ for "seeing the world." If one lacks a sufficient accumulation of what is often deemed shallow and superficial, how can they claim to have truly broadened their horizons? Of course, we must acknowledge the potential neglect of the inner realm. Yet it feels tragic: a group of students who haven’t seen much of the world condemning "observing externalities" with truths taught by sages—how strange and disheartening. Perhaps this is the sacred hall's strength: its truth shines so brightly that it obliterates all "darkness" that doesn’t align. Bathed in this light, I feel a refreshing and sanctified clarity within but lose touch with what the real world is, unaware that I, too, am in the darkness. Such a state, free from distractions and focused upward—how beautiful...
+# H1
 
-Why am I, too, in "darkness"? Perhaps it’s an inescapable flaw as a human being. I’m too obedient—principles preached in childhood have seeped into my bones, making me vow to become a sage. But despite saying this, I’ve transgressed those inner rules countless times... Maybe it’s humanity’s basest desires. You can, of course, criticize and reproach me harshly; I won’t complain. After all, in the light of the sage’s truth, I am indeed despicable and insignificant. Writing such words in self-reflection may well be another sin. Being a role model for others to study under these circumstances feels undeserved. That’s why I say I’m also in darkness—a presence that should be cleansed and purged.
+## H2
 
-It’s too bitter, too exhausting. So later, I changed my mind and stopped aspiring to be a sage. Someone told me that humans experience three stages of perception: seeing mountains as mountains, seeing mountains as not mountains, and seeing mountains as mountains again. I shook my head, puzzled. "So, what are you trying to say? Teach me to reach the third stage?"...
+### H3
 
-That night, on our way home, my reserved father suddenly played music in the car. Judging the music itself, it could be described as lowbrow, clichéd, and utterly "tasteless." Yet this creation, excluded from the sacred halls of music, gave my father—who almost never listens to music—the strength of melody. I don’t know why, but even though this moment has long passed, every time I think of it, I feel like crying. To some, listening to such music might indeed be a sin: it takes up market share for quality music and repeatedly lowers public aesthetic standards.
+#### H4
 
-But in this world, there is something even more irrefutable than truth: facts. The fact is, this music brought joy to my father, letting him experience a feeling he had never had during his school days. The pure nature of truth and the complex reality of life always hold some irreconcilable tension. Truth may seem lofty and authoritative, but it cannot erase the genuine experiences of lives rooted in the dust. Yes, critics are absolutely correct—such music is a blight on the market. But what if they aren’t? The joy my father felt from "lowbrow" music might be far more genuine than the restrained satisfaction we feel pursuing "refined tastes"—something truth cannot refute.
+##### H5
 
-"I don’t need you to teach me about the third stage of perception. Why cling so desperately to right and wrong, good and bad?"
+###### H6
 
-Perhaps the notion of "broadening one’s horizons" is similar. Those voices criticizing superficiality often overlook that so-called superficiality is the foundation, a "necessary condition." To assume that only deep reflection and inner enrichment count as "broadening one’s horizons" while dismissing these foundations—how can one claim to have built a complete inner world? While fleeting glances may lack depth, without them, depth is but a castle in the air.
+## Paragraph
 
-For the diligent "exam takers" of small towns, it’s a pity they never truly traverse the world’s vastness. All they have are truths taught by the sacred hall... Yet beneath this sacred hall lies the self—the most irrefutable fact.
+Xerum, quo qui aut unt expliquam qui dolut labo. Aque venitatiusda cum, voluptionse latur sitiae dolessi aut parist aut dollo enim qui voluptate ma dolestendit peritin re plis aut quas inctum laceat est volestemque commosa as cus endigna tectur, offic to cor sequas etum rerum idem sintibus eiur? Quianimin porecus evelectur, cum que nis nust voloribus ratem aut omnimi, sitatur? Quiatem. Nam, omnis sum am facea corem alique molestrunt et eos evelece arcillit ut aut eos eos nus, sin conecerem erum fuga. Ri oditatquam, ad quibus unda veliamenimin cusam et facea ipsamus es exerum sitate dolores editium rerore eost, temped molorro ratiae volorro te reribus dolorer sperchicium faceata tiustia prat.
 
-I am no sage, not even close—more like a muddled person. Like that "lowbrow" music, it may never enter the sacred halls of art, but one night, it became my father’s truest solace. And that moment, more moving than truth.
+Itatur? Quiatae cullecum rem ent aut odis in re eossequodi nonsequ idebis ne sapicia is sinveli squiatum, core et que aut hariosam ex eat.
+
+## Images
+
+#### Syntax
+
+```markdown
+![Alt text](./full/or/relative/path/of/image)
+```
+
+#### Output
+
+![blog placeholder](/home.webp)
+
+## Blockquotes
+
+The blockquote element represents content that is quoted from another source, optionally with a citation which must be within a `footer` or `cite` element, and optionally with in-line changes such as annotations and abbreviations.
+
+### Blockquote without attribution
+
+#### Syntax
+
+```markdown
+> Tiam, ad mint andaepu dandae nostion secatur sequo quae.
+> **Note** that you can use _Markdown syntax_ within a blockquote.
+```
+
+#### Output
+
+> Tiam, ad mint andaepu dandae nostion secatur sequo quae.
+> **Note** that you can use _Markdown syntax_ within a blockquote.
+
+### Blockquote with attribution
+
+#### Syntax
+
+```markdown
+> Don't communicate by sharing memory, share memory by communicating.<br>
+> — <cite>Rob Pike[^1]</cite>
+```
+
+#### Output
+
+> Don't communicate by sharing memory, share memory by communicating.<br>
+> — <cite>Rob Pike[^1]</cite>
+
+[^1]: The above quote is excerpted from Rob Pike's [talk](https://www.youtube.com/watch?v=PAAkCSZUG1c) during Gopherfest, November 18, 2015.
+
+## Tables
+
+#### Syntax
+
+```markdown
+| Italics   | Bold     | Code   |
+| --------- | -------- | ------ |
+| _italics_ | **bold** | `code` |
+```
+
+#### Output
+
+| Italics   | Bold     | Code   |
+| --------- | -------- | ------ |
+| _italics_ | **bold** | `code` |
+
+## Code Blocks
+
+#### Syntax
+
+we can use 3 backticks ``` in new line and write snippet and close with 3 backticks on new line and to highlight language specific syntac, write one word of language name after first 3 backticks, for eg. html, javascript, css, markdown, typescript, txt, bash
+
+````markdown
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+const int N = 1e5 + 5;
+int n, k, a[N];
+long long ans;
+vector<int> v[N];
+int main()
+{
+    scanf("%d%d", &n, &k);
+    for (int i = 1; i <= n; i++)
+    {
+        scanf("%d", &a[i]);
+        v[i % k].push_back(a[i]);
+    }
+    for (int i = 0; i < k; i++)
+        sort(v[i].rbegin(), v[i].rend());
+    for (int i = 0; i < k; i++)
+    {
+        for (int j = 0; j + 1 < v[i].size(); j += 2)
+        {
+            ans += v[i][j] + v[i][j + 1];
+        }
+    }
+    printf("%lld\n", ans);
+    return 0;
+}
+```
+````
+
+Output
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+const int N = 1e5 + 5;
+int n, k, a[N];
+long long ans;
+vector<int> v[N];
+int main()
+{
+    scanf("%d%d", &n, &k);
+    for (int i = 1; i <= n; i++)
+    {
+        scanf("%d", &a[i]);
+        v[i % k].push_back(a[i]);
+    }
+    for (int i = 0; i < k; i++)
+        sort(v[i].rbegin(), v[i].rend());
+    for (int i = 0; i < k; i++)
+    {
+        for (int j = 0; j + 1 < v[i].size(); j += 2)
+        {
+            ans += v[i][j] + v[i][j + 1];
+        }
+    }
+    printf("%lld\n", ans);
+    return 0;
+}
+```
+
+## List Types
+
+### Ordered List
+
+#### Syntax
+
+```markdown
+1. First item
+2. Second item
+3. Third item
+```
+
+#### Output
+
+1. First item
+2. Second item
+3. Third item
+
+### Unordered List
+
+#### Syntax
+
+```markdown
+- List item
+- Another item
+- And another item
+```
+
+#### Output
+
+- List item
+- Another item
+- And another item
+
+### Nested list
+
+#### Syntax
+
+```markdown
+- Fruit
+  - Apple
+  - Orange
+  - Banana
+- Dairy
+  - Milk
+  - Cheese
+```
+
+#### Output
+
+- Fruit
+  - Apple
+  - Orange
+  - Banana
+- Dairy
+  - Milk
+  - Cheese
+
+## Other Elements
+
+#### Syntax
+
+```markdown
+<abbr title="Graphics Interchange Format">GIF</abbr> is a bitmap image format.
+
+H<sub>2</sub>O
+
+X<sup>n</sup> + Y<sup>n</sup> = Z<sup>n</sup>
+
+Press <kbd><kbd>CTRL</kbd>+<kbd>ALT</kbd>+<kbd>Delete</kbd></kbd> to end the session.
+
+Most <mark>salamanders</mark> are nocturnal, and hunt for insects, worms, and other small creatures.
+```
+
+#### Output
+
+<abbr title="Graphics Interchange Format">GIF</abbr> is a bitmap image format.
+
+H<sub>2</sub>O
+
+X<sup>n</sup> + Y<sup>n</sup> = Z<sup>n</sup>
+
+Press <kbd><kbd>CTRL</kbd>+<kbd>ALT</kbd>+<kbd>Delete</kbd></kbd> to end the session.
+
+Most <mark>salamanders</mark> are nocturnal, and hunt for insects, worms, and other small creatures.

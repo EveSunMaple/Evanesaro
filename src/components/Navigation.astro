@@ -1,33 +1,27 @@
 ---
 import ThemeToggle from "./ThemeToggle.astro";
+import { Icon } from "astro-icon/components";
 
 const navigation = [
   { name: "Home", href: "/" },
   { name: "About", href: "/about" },
-  { name: "Blog", href: "/blog" },
+  { name: "Blog", href: "/blog/1" },
 ];
 ---
 
-<div class="navbar container mx-auto px-4">
+<div
+  class="navbar container mx-auto px-4"
+  transition:name="navbar"
+  transition:persist
+>
   <div class="flex-none lg:hidden">
     <label for="drawer-nav" class="btn btn-square btn-ghost drawer-button">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        class="inline-block h-6 w-6 stroke-current"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M4 6h16M4 12h16M4 18h16"></path>
-      </svg>
+      <Icon name="lucide:menu" class="h-6 w-6 stroke-current" />
     </label>
   </div>
 
   <div class="flex-1">
-    <a href="/" class="text-xl font-bold">Your Name</a>
+    <a href="/" class="text-xl font-bold">SaroProck</a>
   </div>
 
   <div class="flex-none hidden lg:block">

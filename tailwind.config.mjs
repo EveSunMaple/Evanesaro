@@ -1,21 +1,21 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
-  darkMode: 'class',
+  content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
+  darkMode: "class",
   theme: {
     extend: {
       typography: {
         DEFAULT: {
           css: {
-            maxWidth: '100ch',
+            maxWidth: "100ch",
           },
         },
       },
     },
   },
   plugins: [
-    require('@tailwindcss/typography'),
-    require('daisyui')
+    require("@tailwindcss/typography"),
+    require("daisyui"),
   ],
   daisyui: {
     themes: ["light", "night"],
@@ -24,5 +24,5 @@ export default {
     styled: true,
     utils: true,
     logs: false,
-  }
-}
+  },
+};

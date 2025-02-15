@@ -1,11 +1,16 @@
 ---
-import { getCollection } from 'astro:content';
-import Layout from '../../layouts/Layout.astro';
-import TableOfContents from '../../components/TableOfContents.astro';
-import { format } from 'date-fns';
+import { getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import TableOfContents from "../../components/TableOfContents.astro";
+import PostStats from "../../components/PostStats.astro";
+import PostFooter from "../../components/PostFooter.astro";
+import ProgressiveImg from "../../components/ProgressiveImg.astro";
+import { getReadingTime } from "../../utils/readingTime";
+import { format } from "date-fns";
+import { Icon } from "astro-icon/components";
 
 export async function getStaticPaths() {
-  const posts = await getCollection('blog');
+  const posts = await getCollection("blog");
   return posts.map((post) => ({
     params: { slug: post.slug },
     props: { post },
@@ -14,6 +19,19 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content, headings } = await post.render();
+
+// Calculate reading time
+const readingTime = getReadingTime(post.body);
+
+// Author info (customize as needed)
+const author = {
+  name: "SunMaple",
+  avatar: "https://github.com/EveSunMaple.png",
+  bio: "A student who loves programming and technology.",
+};
+
+// Get canonical URL for the post
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <Layout
@@ -25,124 +43,87 @@ const { Content, headings } = await post.render();
     <div class="flex flex-col xl:flex-row xl:gap-8">
       <!-- Main Content -->
       <article class="flex-grow xl:w-3/4">
-        {post.data.featuredImage && (
-          <img
-            src={post.data.featuredImage}
-            alt={post.data.title}
-            class="w-full aspect-video object-cover rounded-lg mb-8"
-          />
-        )}
-        
-        <header class="mb-12">
-          <h1 class="text-4xl lg:text-5xl font-bold mb-6 leading-tight">{post.data.title}</h1>
-          
-          {post.data.audioUrl && (
-            <div class="audio-player mb-6 p-4 bg-base-200 rounded-lg animate-fade-in">
-              <audio
-                controls
-                class="w-full focus:outline-none"
-                src={post.data.audioUrl}
-              >
-                Your browser does not support the audio element.
-              </audio>
-            </div>
-          )}
+        {
+          post.data.featuredImage && (
+            <ProgressiveImg
+              src={post.data.featuredImage}
+              alt={post.data.title}
+              class="w-full aspect-video object-cover rounded-lg mb-8"
+            />
+          )
+        }
 
-          <div class="flex flex-wrap gap-4 text-sm text-base-content/70 mb-4">
-            <time datetime={post.data.pubDate.toISOString()} class="flex items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" class="inline h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
-              {format(post.data.pubDate, 'MMMM d, yyyy')}
+        <header class="mb-12">
+          <h2
+            class="text-4xl lg:text-5xl font-bold mb-6 leading-tight animate-fade-up"
+            transition:name=`title-${post.data.title}`
+          >
+            {post.data.title}
+          </h2>
+
+          <div
+            class="flex flex-wrap gap-4 text-sm text-base-content/70 mb-4 mt-6"
+          >
+            <time
+              datetime={post.data.pubDate.toISOString()}
+              class="flex items-center"
+            >
+              <Icon name="lucide:calendar" class="inline h-4 w-4 mr-1" />
+              {format(post.data.pubDate, "MMMM d, yyyy")}
             </time>
-            {post.data.updatedDate && (
-              <time datetime={post.data.updatedDate.toISOString()} class="flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="inline h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                </svg>
-                {format(post.data.updatedDate, 'MMMM d, yyyy')}
-              </time>
-            )}
+            {
+              post.data.updatedDate && (
+                <time
+                  datetime={post.data.updatedDate.toISOString()}
+                  class="flex items-center"
+                >
+                  <Icon name="lucide:refresh-cw" class="inline h-4 w-4 mr-1" />
+                  Updated: {format(post.data.updatedDate, "MMMM d, yyyy")}
+                </time>
+              )
+            }
           </div>
-          
+
           <div class="flex flex-wrap gap-2">
-            {post.data.categories.map((category) => (
-              <a
-                href={`/category/${category.toLowerCase()}`}
-                class="badge badge-neutral gap-1 hover:scale-105 transition-transform duration-200"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
-                </svg>
-                {category}
-              </a>
-            ))}
-            {post.data.tags.map((tag) => (
-              <a
-                href={`/tag/${tag.toLowerCase()}`}
-                class="badge badge-outline gap-1 hover:scale-105 transition-transform duration-200"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
-                </svg>
-                {tag}
-              </a>
-            ))}
+            {
+              post.data.categories.map((category) => (
+                <a
+                  href={`/category/${category.toLowerCase()}`}
+                  class="badge badge-neutral gap-1 hover:scale-105 transition-transform duration-200"
+                >
+                  <Icon name="lucide:folder" class="h-4 w-4" />
+                  {category}
+                </a>
+              ))
+            }
+            {
+              post.data.tags.map((tag) => (
+                <a
+                  href={`/tag/${tag.toLowerCase()}`}
+                  class="badge badge-outline gap-1 hover:scale-105 transition-transform duration-200"
+                >
+                  <Icon name="lucide:tag" class="h-4 w-4" />
+                  {tag}
+                </a>
+              ))
+            }
           </div>
+
+          <PostStats readingTime={readingTime} />
         </header>
 
         <div class="prose prose-lg max-w-none">
           <Content />
         </div>
 
-        {post.data.attachments && post.data.attachments.length > 0 && (
-          <div class="mt-12 pt-8 border-t border-base-300">
-            <h2 class="text-2xl font-bold mb-6">Attachments</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {post.data.attachments.map((attachment) => (
-                <div class="card bg-base-200 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-                  <div class="card-body">
-                    <h3 class="card-title text-lg">
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
-                      </svg>
-                      {attachment.name}
-                    </h3>
-                    {attachment.size && (
-                      <p class="text-sm text-base-content/70">{attachment.size}</p>
-                    )}
-                    <div class="card-actions justify-end">
-                      <a
-                        href={attachment.url}
-                        download
-                        class="btn btn-primary btn-sm gap-2 hover:scale-105 transition-transform duration-200"
-                      >
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                        </svg>
-                        Download
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        <footer class="mt-12 pt-8 border-t border-base-300">
-          <p class="text-sm text-base-content/70">
-            This content is licensed under{' '}
-            <a
-              href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="hover:text-primary transition-colors duration-200"
-            >
-              CC BY-NC-SA 4.0
-            </a>
-          </p>
-        </footer>
+        <PostFooter
+          title={post.data.title}
+          url={canonicalURL.toString()}
+          pubDate={post.data.pubDate}
+          categories={post.data.categories}
+          tags={post.data.tags}
+          author={author}
+        />
       </article>
 
       <!-- Table of Contents -->
@@ -154,59 +135,22 @@ const { Content, headings } = await post.render();
 </Layout>
 
 <style>
-  /* Audio player styling */
-  .audio-player audio {
-    --primary: hsl(var(--p));
-    --secondary: hsl(var(--s));
-  }
-  
-  .audio-player audio::-webkit-media-controls-panel {
-    background-color: transparent;
-  }
-  
-  .audio-player audio::-webkit-media-controls-play-button,
-  .audio-player audio::-webkit-media-controls-mute-button {
-    border-radius: 50%;
-    transition: background-color 0.2s;
-  }
-  
-  .audio-player audio::-webkit-media-controls-play-button:hover,
-  .audio-player audio::-webkit-media-controls-mute-button:hover {
-    background-color: hsl(var(--p) / 0.1);
-  }
-  
-  /* Code block styling */
-  pre {
-    padding: 1.5rem !important;
-    border-radius: 0.5rem;
-    background-color: hsl(var(--b2)) !important;
-  }
-  
-  pre code {
-    background-color: transparent !important;
-    padding: 0 !important;
-    border-radius: 0 !important;
-  }
-  
-  @keyframes fadeIn {
+  @keyframes fadeUp {
     from {
       opacity: 0;
-      transform: translateY(10px);
+      transform: translateY(20px);
     }
     to {
       opacity: 1;
       transform: translateY(0);
     }
   }
-  
-  .animate-fade-in {
-    animation: fadeIn 0.5s ease-out forwards;
+
+  .animate-fade-up {
+    animation: fadeUp 0.5s ease-out forwards;
   }
 
-  /* Responsive typography */
-  @media (max-width: 768px) {
-    h1 {
-      font-size: clamp(2rem, 5vw, 3rem);
-    }
+  * {
+    scroll-behavior: smooth;
   }
 </style>
