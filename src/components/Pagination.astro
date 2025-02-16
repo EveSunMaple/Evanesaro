@@ -10,38 +10,36 @@ interface Props {
 const { currentPage, totalPages, baseUrl } = Astro.props;
 
 const prevUrl = currentPage > 1 ? `${baseUrl}/${currentPage - 1}` : baseUrl;
-const nextUrl = currentPage < totalPages ? `${baseUrl}/${currentPage + 1}` : null;
+const nextUrl =
+  currentPage < totalPages ? `${baseUrl}/${currentPage + 1}` : null;
 ---
 
 <div class="flex justify-center space-x-2 mt-8">
-  {currentPage > 1 && (
-    <a
-      href={prevUrl}
-      class="btn btn-primary btn-outline gap-2"
-    >
-      <Icon name="lucide:chevron-left" class="h-4 w-4" />
-      Previous
-    </a>
-  )}
-  
-  {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
-    <a
-      href={pageNum === 1 ? baseUrl : `${baseUrl}/${pageNum}`}
-      class={`btn ${
-        currentPage === pageNum ? 'btn-primary' : 'btn-ghost'
-      }`}
-    >
-      {pageNum}
-    </a>
-  ))}
-  
-  {nextUrl && (
-    <a
-      href={nextUrl}
-      class="btn btn-primary btn-outline gap-2"
-    >
-      Next
-      <Icon name="lucide:chevron-right" class="h-4 w-4" />
-    </a>
-  )}
+  {
+    currentPage > 1 && (
+      <a href={prevUrl} class="btn btn-primary btn-outline gap-2">
+        <Icon name="lucide:chevron-left" class="h-4 w-4" />
+        Previous
+      </a>
+    )
+  }
+
+  {
+    Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
+      <a
+        href={pageNum === 1 ? baseUrl : `${baseUrl}/${pageNum}`}
+        class={`btn ${currentPage === pageNum ? "btn-primary" : "btn-ghost"}`}
+      >
+        {pageNum}
+      </a>
+    ))
+  }
+  {
+    nextUrl && (
+      <a href={nextUrl} class="btn btn-primary btn-outline gap-2">
+        Next
+        <Icon name="lucide:chevron-right" class="h-4 w-4" />
+      </a>
+    )
+  }
 </div>

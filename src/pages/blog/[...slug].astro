@@ -43,20 +43,25 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <div class="flex flex-col xl:flex-row xl:gap-8">
       <!-- Main Content -->
       <article class="flex-grow xl:w-3/4">
-        {
-          post.data.featuredImage && (
-            <ProgressiveImg
-              src={post.data.featuredImage}
-              alt={post.data.title}
-              class="w-full aspect-video object-cover rounded-lg mb-8"
-            />
-          )
-        }
+        <div transition:name=`image-${post.slug}`>
+          {
+            post.data.featuredImage && (
+              <img
+                class="w-full aspect-video object-cover rounded-lg mb-8"
+                src={post.data.featuredImage}
+                alt={post.data.title}
+                class="thumbnail"
+                width="800"
+                height="400"
+              />
+            )
+          }
+        </div>
 
         <header class="mb-12">
           <h2
             class="text-4xl lg:text-5xl font-bold mb-6 leading-tight animate-fade-up"
-            transition:name=`title-${post.data.title}`
+            transition:name=`title-${post.slug}`
           >
             {post.data.title}
           </h2>
@@ -148,9 +153,5 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
   .animate-fade-up {
     animation: fadeUp 0.5s ease-out forwards;
-  }
-
-  * {
-    scroll-behavior: smooth;
   }
 </style>

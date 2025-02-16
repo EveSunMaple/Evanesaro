@@ -3,6 +3,7 @@ title: "Your Post Title"
 description: "A brief description of your post"
 pubDate: 2024-03-14
 updatedDate: 2024-03-15
+featuredImage: /home.webp
 categories: ["Technology", "Programming"]
 tags: ["JavaScript", "Web Development"]
 badges: ["New", "Featured"]
@@ -18,7 +19,6 @@ attachments:
 ---
 
 Your post content here...
-
 
 Here is a sample of some basic Markdown syntax that can be used when writing Markdown content in Astro.
 

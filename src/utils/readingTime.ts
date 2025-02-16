@@ -8,18 +8,15 @@ interface ReadingTimeResult {
   englishWords: number;
 }
 
-export function getReadingTime(content: string): ReadingTimeResult {
-  // Convert markdown content to plain text
-  const text = toString(content);
+export function getReadingTime(text: string): ReadingTimeResult {
   
   // Count Chinese characters (including punctuation)
-  const chineseRegex = /[\u4e00-\u9fff\u3000-\u303f\uff00-\uff60\u2000-\u206f\u3000-\u303f]/g;
-  const chineseMatches = text.match(chineseRegex) || [];
-  const chineseCharacters = chineseMatches.length;
+  const chineseRegex = /[\u4E00-\u9FA5]/g;
+  const chineseCharacters = text.match(chineseRegex)?.length || 0;
   
   // Remove Chinese characters and normalize spaces
   const englishText = text.replace(chineseRegex, ' ').replace(/\s+/g, ' ').trim();
-  const englishWords = englishText ? englishText.split(/\s+/).length : 0;
+  const englishWords = englishText ? text.split(/\s+/).filter(Boolean).length : 0;
   
   // Total character count (excluding whitespace)
   const characters = text.replace(/\s/g, '').length;

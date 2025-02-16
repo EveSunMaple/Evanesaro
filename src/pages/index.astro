@@ -9,9 +9,7 @@ const posts = await getCollection("blog", ({ data }) => {
   return import.meta.env.PROD ? !data.draft : true;
 });
 
-const recentPosts = posts
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-  .slice(0, 1);
+const recentPosts = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()).slice(0, 1);
 
 const socialLinks = [
   {
@@ -59,9 +57,7 @@ const socialLinks = [
       >
         SunMaple
       </h1>
-      <p class="text-xl text-base-content/80 mb-6">
-        A student who loves programming and technology
-      </p>
+      <p class="text-xl text-base-content/80 mb-6">A student who loves programming and technology</p>
 
       <!-- Social Links -->
       <div class="flex justify-center gap-4">
@@ -84,10 +80,8 @@ const socialLinks = [
     <!-- About Section -->
     <section class="prose prose-lg max-w-none mb-16">
       <p>
-        Hello! I'm SunMaple, a student who loves programming and technology. I'm
-        passionate about web development, open source, and building cool
-        projects. I'm currently studying Computer Science at a university in
-        China.
+        Hello! I'm SunMaple, a student who loves programming and technology. I'm passionate about web development, open
+        source, and building cool projects. I'm currently studying Computer Science at a university in China.
       </p>
     </section>
 
