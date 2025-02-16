@@ -32,63 +32,66 @@ const socialLinks = [
 ];
 ---
 
-<footer class="bg-base-200/50 backdrop-blur-sm transition">
-  <div class="container mx-auto px-4 py-12">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-      <div>
-        <h3 class="text-lg font-semibold mb-4">About</h3>
-        <p class="text-base-content/80">
+<footer class="bg-base-200/50 backdrop-blur-sm transition-colors">
+  <div class="container mx-auto px-16 py-12">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div class="space-y-4">
+        <h3 class="text-lg font-semibold">About</h3>
+        <p class="text-base-content/80 leading-relaxed">
           Personal blog about technology, programming, and life.
         </p>
       </div>
-      <div>
-        <h3 class="text-lg font-semibold mb-4">Links</h3>
+
+      <div class="space-y-4">
+        <h3 class="text-lg font-semibold">Navigation</h3>
         <ul class="space-y-2">
           <li>
-            <a
-              href="/"
-              class="text-base-content/80 hover:text-primary transition-colors duration-200"
-            >
-              Home
-            </a>
+            <a href="/" class="link link-hover text-base-content/80">Home</a>
           </li>
           <li>
-            <a
-              href="/about"
-              class="text-base-content/80 hover:text-primary transition-colors duration-200"
-            >
-              About
-            </a>
+            <a href="/about" class="link link-hover text-base-content/80">About</a>
           </li>
           <li>
-            <a
-              href="/blog/1"
-              class="text-base-content/80 hover:text-primary transition-colors duration-200"
-            >
-              Blog
-            </a>
+            <a href="/blog/1" class="link link-hover text-base-content/80">Blog</a>
           </li>
         </ul>
       </div>
-      <div>
-        <h3 class="text-lg font-semibold mb-4">Social</h3>
-        <div class="flex gap-4">
+
+      <div class="space-y-4">
+        <h3 class="text-lg font-semibold">Connect</h3>
+        <div class="flex flex-wrap gap-4">
           {
             socialLinks.map((link) => (
               <a
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="text-base-content/80 hover:text-primary transition-all duration-300 hover:scale-110"
+                class="btn btn-ghost btn-sm btn-circle"
                 aria-label={link.name}
               >
-                <Icon name={link.icon} class="h-6 w-6" />
+                <Icon name={link.icon} class="h-5 w-5" />
               </a>
             ))
           }
         </div>
       </div>
+
+      <div class="space-y-4">
+        <h3 class="text-lg font-semibold">Newsletter</h3>
+        <form class="flex gap-2">
+          <input
+            type="email"
+            placeholder="your@email.com"
+            class="input input-bordered flex-1"
+            required
+          />
+          <button type="submit" class="btn btn-primary">
+            Subscribe
+          </button>
+        </form>
+      </div>
     </div>
+
     <div class="border-t border-base-300 mt-8 pt-8 text-center">
       <p class="text-sm text-base-content/70">
         © {currentYear} Your Name. All rights reserved.
@@ -98,7 +101,7 @@ const socialLinks = [
           href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
           target="_blank"
           rel="noopener noreferrer"
-          class="hover:text-primary transition-colors duration-200"
+          class="link link-hover"
         >
           CC BY-NC-SA 4.0
         </a>

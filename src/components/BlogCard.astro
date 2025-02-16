@@ -17,211 +17,89 @@ const { title, description, date, categories = [], tags = [], readingTime, thumb
 ---
 
 <article class="blog-card group animate-fade-in" style={`--delay: ${Math.random() * 0.5}s`}>
-  <div transition:name=`image-${slug}`>
-    {
-      thumbnail && (
-        <a href={`/blog/${slug}`} class="thumbnail-container">
-          <img src={thumbnail} alt={title} class="thumbnail" width="800" height="400" />
-        </a>
-      )
-    }
-  </div>
+  <div class="card bg-base-200/40 backdrop-blur-sm hover:bg-base-200/60 transition-all duration-300 overflow-hidden min-w-[280px] h-full">
+    <div transition:name=`image-${slug}` class="relative">
+      {
+        thumbnail && (
+          <a href={`/blog/${slug}`} class="block">
+            <div class="aspect-video overflow-hidden">
+              <img 
+                src={thumbnail} 
+                alt={title} 
+                class="w-full h-full object-cover transform transition-transform duration-300 group-hover:scale-105"
+                width="800"
+                height="400"
+              />
+            </div>
+          </a>
+        )
+      }
+    </div>
 
-  <div class="content">
-    <header>
-      <h2 class="title" transition:name=`title-${slug}`>
+    <div class="card-body">
+      <h2 class="card-title text-xl font-bold line-clamp-2 hover:text-primary transition-colors" transition:name=`title-${slug}`>
         <a href={`/blog/${slug}`}>{title}</a>
       </h2>
 
-      <div class="meta">
-        <time datetime={date.toISOString()}>
-          <Icon name="lucide:calendar" class="h-4 w-4 inline-block mr-1" />
-          {format(date, "MMMM d, yyyy")}
-        </time>
-        {
-          readingTime && (
-            <span class="reading-time">
-              <Icon name="lucide:clock" class="h-4 w-4 inline-block mr-1" />
-              {readingTime} min read
-            </span>
-          )
-        }
+      {description && <p class="text-base-content/80 line-clamp-3 mt-2">{description}</p>}
 
-        <div class="dropdown dropdown-hover dropdown-end">
-          <button tabindex="0" class="meta-trigger" aria-label="Post metadata">
-            <Icon name="lucide:info" class="h-4 w-4" />
-            <span class="sr-only">Info</span>
-          </button>
-          <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-200 rounded-box w-52 z-10">
-            {
-              (categories.length > 0 || tags.length > 0) && (
-                <li class="menu-title">
-                  <span>Metadata</span>
-                </li>
-              )
-            }
-            {
-              categories.length > 0 && (
-                <li class="meta-item">
-                  <div class="categories">
-                    <Icon name="lucide:folder" class="h-4 w-4" />
-                    <span class="space-x-1">
-                      {categories.map((category, index) => (
-                        <>
-                          {index > 0 && ", "}
-                          <a href={`/category/${category.toLowerCase()}`} class="hover:text-primary transition-colors">
-                            {category}
-                          </a>
-                        </>
-                      ))}
-                    </span>
-                  </div>
-                </li>
-              )
-            }
-            {
-              tags.length > 0 && (
-                <li class="meta-item">
-                  <div class="tags">
-                    <Icon name="lucide:tag" class="h-4 w-4" />
-                    <span class="space-x-1">
-                      {tags.map((tag, index) => (
-                        <>
-                          {index > 0 && ", "}
-                          <a href={`/tag/${tag.toLowerCase()}`} class="hover:text-primary transition-colors">
-                            {tag}
-                          </a>
-                        </>
-                      ))}
-                    </span>
-                  </div>
-                </li>
-              )
-            }
-          </ul>
+      <div class="card-meta mt-4 space-y-3">
+        <div class="flex items-center gap-2 text-sm text-base-content/70">
+          <time datetime={date.toISOString()}>
+            <Icon name="lucide:calendar" class="h-4 w-4 inline-block mr-1" />
+            {format(date, "MMMM d, yyyy")}
+          </time>
+          {
+            readingTime && (
+              <span class="reading-time">
+                <Icon name="lucide:clock" class="h-4 w-4 inline-block mr-1" />
+                {readingTime} min read
+              </span>
+            )
+          }
+        </div>
+
+        <div class="flex flex-wrap gap-2">
+          {
+            categories.map((category) => (
+              <a
+                href={`/category/${category.toLowerCase()}`}
+                  class="badge badge-neutral gap-1 hover:scale-105 transition-transform duration-200"
+              >
+                  <Icon name="lucide:folder" class="h-4 w-4" />
+                {category}
+              </a>
+            ))
+          }
+          {
+            tags.map((tag) => (
+              <a
+                href={`/tag/${tag.toLowerCase()}`}
+                  class="badge badge-outline gap-1 hover:scale-105 transition-transform duration-200"
+              >
+                  <Icon name="lucide:tag" class="h-4 w-4" />
+                {tag}
+              </a>
+            ))
+          }
         </div>
       </div>
-    </header>
 
-    {description && <p class="description">{description}</p>}
-
-    <a href={`/blog/${slug}`} class="read-more group">
-      Read More
-      <Icon name="lucide:arrow-right" class="h-4 w-4 transition-transform group-hover:translate-x-1" />
-    </a>
+      <div class="card-actions justify-end mt-4">
+        <a href={`/blog/${slug}`} class="btn btn-ghost btn-sm transition-colors">
+          Read More
+          <Icon name="lucide:arrow-right" class="h-4 w-4 transition-transform group-hover:translate-x-1" />
+        </a>
+      </div>
+    </div>
   </div>
 </article>
 
 <style>
   .blog-card {
-    font-family:
-      system-ui,
-      -apple-system,
-      BlinkMacSystemFont,
-      "Segoe UI",
-      Roboto,
-      Oxygen,
-      Ubuntu,
-      Cantarell,
-      "Open Sans",
-      "Helvetica Neue",
-      sans-serif;
-    margin-bottom: 2rem;
-    transition: transform 0.2s ease-in-out;
-  }
-
-  .blog-card:hover {
-    transform: scale(1.02);
-  }
-
-  .thumbnail-container {
-    display: block;
-    border-radius: 0.5rem;
-    margin-bottom: 1rem;
-    overflow: hidden;
-  }
-
-  .thumbnail {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 2/1;
-    object-fit: cover;
-    transition: transform 0.2s ease-in-out;
-  }
-
-  .thumbnail-container:hover .thumbnail {
-    transform: scale(1.05);
-  }
-
-  .content {
-    padding: 0 1rem;
-  }
-
-  .title {
-    font-size: clamp(1.25rem, 5vw, 1.5rem);
-    line-height: 1.2;
-    margin-bottom: 0.5rem;
-    font-weight: 600;
-  }
-
-  .title a {
-    color: inherit;
-    text-decoration: none;
-    transition: color 0.2s ease-in-out;
-  }
-
-  .title a:hover {
-    color: hsl(var(--p));
-  }
-
-  .meta {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.875rem;
-    color: hsl(var(--bc) / 0.7);
-    margin-bottom: 1rem;
-  }
-
-  .meta-trigger {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.25rem;
-    padding: 0.25rem;
-    color: hsl(var(--bc) / 0.7);
-    transition: color 0.2s ease-in-out;
-  }
-
-  .meta-trigger:hover {
-    color: hsl(var(--bc));
-  }
-
-  .meta-item {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.875rem;
-  }
-
-  .description {
-    color: hsl(var(--bc) / 0.8);
-    line-height: 1.6;
-    margin-bottom: 1rem;
-    max-width: 65ch;
-  }
-
-  .read-more {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.25rem;
-    font-size: 0.875rem;
-    color: hsl(var(--p));
-    text-decoration: none;
-    transition: color 0.2s ease-in-out;
-  }
-
-  .read-more:hover {
-    color: hsl(var(--pf));
+    opacity: 0;
+    animation: fadeIn 0.5s ease-out forwards;
+    animation-delay: var(--delay);
   }
 
   @keyframes fadeIn {
@@ -232,12 +110,6 @@ const { title, description, date, categories = [], tags = [], readingTime, thumb
     to {
       opacity: 1;
       transform: translateY(0);
-    }
-  }
-
-  @media (max-width: 768px) {
-    .content {
-      padding: 0;
     }
   }
 </style>

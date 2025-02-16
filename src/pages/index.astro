@@ -9,7 +9,7 @@ const posts = await getCollection("blog", ({ data }) => {
   return import.meta.env.PROD ? !data.draft : true;
 });
 
-const recentPosts = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()).slice(0, 1);
+const recentPosts = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()).slice(0, 2);
 
 const socialLinks = [
   {
@@ -87,8 +87,11 @@ const socialLinks = [
 
     <!-- Recent Blog Posts -->
     <section class="mb-16">
-      <h2 class="text-3xl font-bold mb-8">Recent Posts</h2>
-      <div class="grid gap-8">
+      <h2 class="text-3xl font-bold mb-8 flex items-center gap-2">
+        <Icon name="lucide:pen-tool" class="w-8 h-8" />
+        Recent Posts
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         {
           recentPosts.map((post) => (
             <BlogCard

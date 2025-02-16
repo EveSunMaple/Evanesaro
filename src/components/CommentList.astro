@@ -1,0 +1,155 @@
+---
+import { Icon } from "astro-icon/components";
+
+interface Props {
+  slug: string;
+}
+
+const { slug } = Astro.props;
+---
+
+<div class="comments-list space-y-6" data-slug={slug}>
+  <div class="loading-comments flex justify-center">
+    <span class="loading loading-spinner loading-lg"></span>
+  </div>
+</div>
+
+<script>
+  import * as AV from "leancloud-storage";
+  import { format } from "date-fns";
+
+  function initCommentList() {
+    const commentsList = document.querySelector(".comments-list");
+    const slug = commentsList.dataset.slug;
+
+    async function loadComments() {
+      try {
+        const query = new AV.Query("Comment");
+        query.equalTo("slug", slug);
+        query.ascending("createdAt");
+
+        const comments = await query.find();
+
+        // Build comment tree
+        const commentTree = buildCommentTree(comments);
+
+        // Render comments
+        commentsList.innerHTML = renderComments(commentTree);
+
+        // Add reply handlers
+        addReplyHandlers();
+      } catch (error) {
+        console.error("Error loading comments:", error);
+        commentsList.innerHTML = `
+          <div class="alert alert-error">
+            <span>Error loading comments. Please try again later.</span>
+          </div>
+        `;
+      }
+    }
+
+    function buildCommentTree(comments) {
+      const commentMap = new Map();
+      const roots = [];
+
+      comments.forEach((comment) => {
+        const data = {
+          id: comment.id,
+          ...comment.toJSON(),
+          children: [],
+        };
+        commentMap.set(data.id, data);
+
+        if (data.parentId) {
+          const parent = commentMap.get(data.parentId);
+          if (parent) {
+            parent.children.push(data);
+          }
+        } else {
+          roots.push(data);
+        }
+      });
+
+      return roots;
+    }
+
+    function renderComments(comments, level = 0) {
+      if (!comments.length) {
+        return '<p class="text-center text-base-content/70">No comments yet. Be the first to comment!</p>';
+      }
+
+      return comments
+        .map(
+          (comment) => `
+        <div class="comment" style="margin-left: ${level * 2}rem">
+          <div class="flex gap-4">
+            <div class="avatar">
+              <div class="w-10 h-10 rounded-full">
+                <img src="${comment.avatar}" alt="${comment.nickname}" />
+              </div>
+            </div>
+            <div class="flex-1">
+              <div class="flex items-center gap-2 mb-1">
+                ${
+                  comment.website
+                    ? `<a href="${comment.website}" class="font-semibold hover:text-primary" target="_blank" rel="noopener noreferrer">
+                    ${comment.nickname}
+                  </a>`
+                    : `<span class="font-semibold">${comment.nickname}</span>`
+                }
+                <span class="text-sm text-base-content/60">
+                  ${format(new Date(comment.createdAt), "PPp")}
+                </span>
+              </div>
+              <div class="prose prose-sm max-w-none mb-2">
+                ${comment.content}
+              </div>
+              <button class="btn btn-ghost btn-sm reply-button" data-comment-id="${comment.id}">
+                <Icon name="lucide:reply" class="w-4 h-4 mr-1" />
+                Reply
+              </button>
+            </div>
+          </div>
+          ${comment.children.length ? renderComments(comment.children, level + 1) : ""}
+        </div>
+      `,
+        )
+        .join("");
+    }
+
+    function addReplyHandlers() {
+      document.querySelectorAll(".reply-button").forEach((button) => {
+        button.addEventListener("click", () => {
+          const commentId = button.dataset.commentId;
+          const comment = button.closest(".comment");
+
+          // Remove any existing reply forms
+          document
+            .querySelectorAll(".reply-form")
+            .forEach((form) => form.remove());
+
+          // Add new reply form
+          const replyForm = document.createElement("div");
+          replyForm.className = "reply-form mt-4 ml-14";
+          replyForm.innerHTML = `
+            <form class="comment-form" data-slug="${slug}" data-parent-id="${commentId}">
+              <!-- Copy form HTML from CommentForm.astro -->
+            </form>
+          `;
+
+          comment.appendChild(replyForm);
+          initCommentForm();
+        });
+      });
+    }
+
+    // Load comments initially
+    loadComments();
+
+    // Reload comments when updated
+    document.addEventListener("commentsUpdated", loadComments);
+  }
+
+  // Initialize on page load and after navigation
+  document.addEventListener("astro:page-load", initCommentList);
+</script>
