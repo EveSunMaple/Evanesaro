@@ -133,7 +133,45 @@ const { slug } = Astro.props;
           replyForm.className = "reply-form mt-4 ml-14";
           replyForm.innerHTML = `
             <form class="comment-form" data-slug="${slug}" data-parent-id="${commentId}">
-              <!-- Copy form HTML from CommentForm.astro -->
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="form-control">
+                  <label class="label">
+                    <span class="label-text">Nickname*</span>
+                  </label>
+                  <input type="text" name="nickname" class="input input-bordered w-full" required minlength="2" maxlength="50">
+                </div>
+                <div class="form-control">
+                  <label class="label">
+                    <span class="label-text">Email*</span>
+                  </label>
+                  <input type="email" name="email" class="input input-bordered w-full" required>
+                </div>
+              </div>
+              <div class="form-control">
+                <label class="label">
+                  <span class="label-text">Website</span>
+                </label>
+                <input type="url" name="website" class="input input-bordered w-full" placeholder="https://">
+              </div>
+              <div class="form-control">
+                <label class="label">
+                  <span class="label-text">Comment*</span>
+                </label>
+                <textarea name="content" class="textarea textarea-bordered h-24" required minlength="2"></textarea>
+                <label class="label">
+                  <span class="label-text-alt">Supports Markdown</span>
+                </label>
+              </div>
+              <div class="flex justify-end gap-2">
+                <button type="button" class="btn btn-ghost cancel-reply">Cancel Reply</button>
+                <button type="submit" class="btn btn-primary submit-button">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                  </svg>
+                  Submit
+                </button>
+              </div>
             </form>
           `;
 

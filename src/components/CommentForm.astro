@@ -72,7 +72,7 @@ const { slug, parentId } = Astro.props;
         </button>
       )
     }
-    <button type="submit" class="btn btn-primary">
+    <button type="submit" class="btn btn-primary submit-button">
       <Icon name="lucide:send" class="w-4 h-4 mr-2" />
       Submit
     </button>
@@ -98,7 +98,10 @@ const { slug, parentId } = Astro.props;
       form.addEventListener("submit", async (e) => {
         e.preventDefault();
         const form = e.target as HTMLFormElement;
-        const submitBtn = form.querySelector('button[type="submit"]');
+        const submitBtn = form.querySelector(
+          ".submit-button",
+        ) as HTMLButtonElement;
+        const originalBtnContent = submitBtn.innerHTML;
 
         try {
           submitBtn.disabled = true;
@@ -131,6 +134,11 @@ const { slug, parentId } = Astro.props;
           // Reset form
           form.reset();
 
+          // Remove reply form if it's a reply
+          if (form.closest(".reply-form")) {
+            form.closest(".reply-form").remove();
+          }
+
           // Refresh comments
           document.dispatchEvent(new CustomEvent("commentsUpdated"));
 
@@ -156,7 +164,7 @@ const { slug, parentId } = Astro.props;
           document.body.appendChild(toast);
         } finally {
           submitBtn.disabled = false;
-          submitBtn.innerHTML = '<svg class="w-4 h-4 mr-2" ...>...</svg>Submit';
+          submitBtn.innerHTML = originalBtnContent;
         }
       });
     });
