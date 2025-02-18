@@ -15,26 +15,14 @@ const { slug, parentId } = Astro.props;
       <label class="label">
         <span class="label-text">Nickname*</span>
       </label>
-      <input
-        type="text"
-        name="nickname"
-        class="input input-bordered w-full"
-        required
-        minlength="2"
-        maxlength="50"
-      />
+      <input type="text" name="nickname" class="input input-bordered w-full" required minlength="2" maxlength="50" />
     </div>
 
     <div class="form-control">
       <label class="label">
         <span class="label-text">Email*</span>
       </label>
-      <input
-        type="email"
-        name="email"
-        class="input input-bordered w-full"
-        required
-      />
+      <input type="email" name="email" class="input input-bordered w-full" required />
     </div>
   </div>
 
@@ -42,23 +30,14 @@ const { slug, parentId } = Astro.props;
     <label class="label">
       <span class="label-text">Website</span>
     </label>
-    <input
-      type="url"
-      name="website"
-      class="input input-bordered w-full"
-      placeholder="https://"
-    />
+    <input type="url" name="website" class="input input-bordered w-full" placeholder="https://" />
   </div>
 
   <div class="form-control">
     <label class="label">
       <span class="label-text">Comment*</span>
     </label>
-    <textarea
-      name="content"
-      class="textarea textarea-bordered h-24"
-      required
-      minlength="2"></textarea>
+    <textarea name="content" class="textarea textarea-bordered h-24" required minlength="2"></textarea>
     <label class="label">
       <span class="label-text-alt">Supports Markdown</span>
     </label>
@@ -98,15 +77,12 @@ const { slug, parentId } = Astro.props;
       form.addEventListener("submit", async (e) => {
         e.preventDefault();
         const form = e.target as HTMLFormElement;
-        const submitBtn = form.querySelector(
-          ".submit-button",
-        ) as HTMLButtonElement;
+        const submitBtn = form.querySelector(".submit-button") as HTMLButtonElement;
         const originalBtnContent = submitBtn.innerHTML;
 
         try {
           submitBtn.disabled = true;
-          submitBtn.innerHTML =
-            '<span class="loading loading-spinner"></span> Submitting...';
+          submitBtn.innerHTML = '<span class="loading loading-spinner"></span> Submitting...';
 
           const formData = new FormData(form);
           const data = {

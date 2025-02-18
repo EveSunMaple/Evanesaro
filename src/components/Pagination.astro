@@ -16,11 +16,7 @@ const nextUrl = currentPage < totalPages ? `${baseUrl}/${currentPage + 1}` : nul
 <nav class="flex justify-center items-center mt-12 gap-2" aria-label="Pagination">
   {
     currentPage > 1 && (
-      <a
-        href={prevUrl}
-        class="btn btn-ghost btn-sm gap-2 hover:bg-base-200/60"
-        aria-label="Previous page"
-      >
+      <a href={prevUrl} class="btn btn-ghost btn-sm gap-2 hover:bg-base-200/60" aria-label="Previous page">
         <Icon name="lucide:chevron-left" class="h-4 w-4" />
         <span class="hidden sm:inline">Previous</span>
       </a>
@@ -33,9 +29,7 @@ const nextUrl = currentPage < totalPages ? `${baseUrl}/${currentPage + 1}` : nul
         <a
           href={pageNum === 1 ? baseUrl : `${baseUrl}/${pageNum}`}
           class={`join-item btn btn-sm min-w-[2.5rem] ${
-            currentPage === pageNum
-              ? "btn-primary"
-              : "btn-ghost hover:bg-base-200/60"
+            currentPage === pageNum ? "btn-primary" : "btn-ghost hover:bg-base-200/60"
           }`}
           aria-current={currentPage === pageNum ? "page" : undefined}
           aria-label={`Page ${pageNum}`}
@@ -48,11 +42,7 @@ const nextUrl = currentPage < totalPages ? `${baseUrl}/${currentPage + 1}` : nul
 
   {
     nextUrl && (
-      <a
-        href={nextUrl}
-        class="btn btn-ghost btn-sm gap-2 hover:bg-base-200/60"
-        aria-label="Next page"
-      >
+      <a href={nextUrl} class="btn btn-ghost btn-sm gap-2 hover:bg-base-200/60" aria-label="Next page">
         <span class="hidden sm:inline">Next</span>
         <Icon name="lucide:chevron-right" class="h-4 w-4" />
       </a>

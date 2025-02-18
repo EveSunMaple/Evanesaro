@@ -17,15 +17,17 @@ const { title, description, date, categories = [], tags = [], readingTime, thumb
 ---
 
 <article class="blog-card group animate-fade-in" style={`--delay: ${Math.random() * 0.5}s`}>
-  <div class="card bg-base-200/40 backdrop-blur-sm hover:bg-base-200/60 transition-all duration-300 overflow-hidden min-w-[280px] h-full">
+  <div
+    class="card bg-base-200/40 backdrop-blur-sm hover:bg-base-200/60 transition-all duration-300 overflow-hidden min-w-[280px] h-full"
+  >
     <div transition:name=`image-${slug}` class="relative">
       {
         thumbnail && (
           <a href={`/blog/${slug}`} class="block">
             <div class="aspect-video overflow-hidden">
-              <img 
-                src={thumbnail} 
-                alt={title} 
+              <img
+                src={thumbnail}
+                alt={title}
                 class="w-full h-full object-cover transform transition-transform duration-300 group-hover:scale-105"
                 width="800"
                 height="400"
@@ -37,7 +39,10 @@ const { title, description, date, categories = [], tags = [], readingTime, thumb
     </div>
 
     <div class="card-body">
-      <h2 class="card-title text-xl font-bold line-clamp-2 hover:text-primary transition-colors" transition:name=`title-${slug}`>
+      <h2
+        class="card-title text-xl font-bold line-clamp-2 hover:text-primary transition-colors"
+        transition:name=`title-${slug}`
+      >
         <a href={`/blog/${slug}`}>{title}</a>
       </h2>
 
@@ -64,9 +69,9 @@ const { title, description, date, categories = [], tags = [], readingTime, thumb
             categories.map((category) => (
               <a
                 href={`/category/${category.toLowerCase()}`}
-                  class="badge badge-neutral gap-1 hover:scale-105 transition-transform duration-200"
+                class="badge badge-neutral gap-1 hover:scale-105 transition-transform duration-200"
               >
-                  <Icon name="lucide:folder" class="h-4 w-4" />
+                <Icon name="lucide:folder" class="h-4 w-4" />
                 {category}
               </a>
             ))
@@ -75,9 +80,9 @@ const { title, description, date, categories = [], tags = [], readingTime, thumb
             tags.map((tag) => (
               <a
                 href={`/tag/${tag.toLowerCase()}`}
-                  class="badge badge-outline gap-1 hover:scale-105 transition-transform duration-200"
+                class="badge badge-outline gap-1 hover:scale-105 transition-transform duration-200"
               >
-                  <Icon name="lucide:tag" class="h-4 w-4" />
+                <Icon name="lucide:tag" class="h-4 w-4" />
                 {tag}
               </a>
             ))

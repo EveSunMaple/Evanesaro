@@ -19,10 +19,7 @@ const reactions = [
   <div class="flex flex-wrap gap-2">
     {
       reactions.map((reaction) => (
-        <button
-          class="btn btn-ghost gap-2 reaction-button"
-          data-reaction={reaction.name}
-        >
+        <button class="btn btn-ghost gap-2 reaction-button" data-reaction={reaction.name}>
           <Icon name={reaction.icon} class="w-5 h-5" />
           <span class="reaction-label">{reaction.label}</span>
           <span class="badge badge-sm reaction-count">0</span>
@@ -106,10 +103,7 @@ const reactions = [
         }
 
         // Save to localStorage
-        localStorage.setItem(
-          `reactions_${slug}`,
-          JSON.stringify([...userReactions]),
-        );
+        localStorage.setItem(`reactions_${slug}`, JSON.stringify([...userReactions]));
 
         // Reload reactions
         await loadReactions();

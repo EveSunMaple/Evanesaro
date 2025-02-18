@@ -76,12 +76,7 @@ const socialPlatforms = [
 
       <!-- Author Info -->
       <div class="flex items-start gap-4 mb-6">
-        <img
-          src={author.avatar}
-          alt={author.name}
-          class="w-16 h-16 rounded-full object-cover"
-          loading="lazy"
-        />
+        <img src={author.avatar} alt={author.name} class="w-16 h-16 rounded-full object-cover" loading="lazy" />
         <div>
           <h3 class="text-lg font-semibold">{author.name}</h3>
           <p class="text-base-content/70">{author.bio}</p>
@@ -102,10 +97,7 @@ const socialPlatforms = [
           <div class="flex flex-wrap gap-2">
             {
               categories.map((category) => (
-                <a
-                  href={`/category/${category.toLowerCase()}`}
-                  class="badge badge-primary"
-                >
+                <a href={`/category/${category.toLowerCase()}`} class="badge badge-primary">
                   {category}
                 </a>
               ))
@@ -118,10 +110,7 @@ const socialPlatforms = [
           <div class="flex flex-wrap gap-2">
             {
               tags.map((tag) => (
-                <a
-                  href={`/tag/${tag.toLowerCase()}`}
-                  class="badge badge-outline"
-                >
+                <a href={`/tag/${tag.toLowerCase()}`} class="badge badge-outline">
                   {tag}
                 </a>
               ))

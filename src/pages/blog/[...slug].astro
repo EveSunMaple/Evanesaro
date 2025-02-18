@@ -34,11 +34,7 @@ const author = {
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
-<Layout
-  title={post.data.title}
-  description={post.data.description}
-  image={post.data.featuredImage}
->
+<Layout title={post.data.title} description={post.data.description} image={post.data.featuredImage}>
   <div class="container mx-auto px-4 lg:px-8">
     <div class="flex flex-col xl:flex-row xl:gap-8">
       <!-- Main Content -->
@@ -65,22 +61,14 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
             {post.data.title}
           </h2>
 
-          <div
-            class="flex flex-wrap gap-4 text-sm text-base-content/70 mb-4 mt-6"
-          >
-            <time
-              datetime={post.data.pubDate.toISOString()}
-              class="flex items-center"
-            >
+          <div class="flex flex-wrap gap-4 text-sm text-base-content/70 mb-4 mt-6">
+            <time datetime={post.data.pubDate.toISOString()} class="flex items-center">
               <Icon name="lucide:calendar" class="inline h-4 w-4 mr-1" />
               {format(post.data.pubDate, "MMMM d, yyyy")}
             </time>
             {
               post.data.updatedDate && (
-                <time
-                  datetime={post.data.updatedDate.toISOString()}
-                  class="flex items-center"
-                >
+                <time datetime={post.data.updatedDate.toISOString()} class="flex items-center">
                   <Icon name="lucide:refresh-cw" class="inline h-4 w-4 mr-1" />
                   Updated: {format(post.data.updatedDate, "MMMM d, yyyy")}
                 </time>
