@@ -9,7 +9,9 @@ const posts = await getCollection("blog", ({ data }) => {
   return import.meta.env.PROD ? !data.draft : true;
 });
 
-const recentPosts = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()).slice(0, 2);
+const recentPosts = posts
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 2);
 
 const socialLinks = [
   {
@@ -41,15 +43,15 @@ const socialLinks = [
 ---
 
 <Layout
-  title="Your Name - Personal Website"
-  description="Professional developer specializing in web development and software engineering"
+  title="SunMaple - Personal Website"
+  description="A student who loves programming and technology"
 >
   <div class="max-w-4xl mx-auto">
     <!-- Header Section -->
     <header class="text-center py-16 animate-fade-in">
       <img
         src="https://github.com/EveSunMaple.png"
-        alt="Your Name"
+        alt="SunMaple"
         class="w-32 h-32 rounded-full mx-auto mb-6 shadow-lg hover:shadow-xl transition-shadow duration-300"
       />
       <h1
@@ -57,7 +59,10 @@ const socialLinks = [
       >
         SunMaple
       </h1>
-      <p class="text-xl text-base-content/80 mb-6">A student who loves programming and technology</p>
+      <p class="text-xl text-base-content/80 mb-6">
+        <span class="inline-block">意识到会不说再见地离别，</span>
+        <span class="inline-block">才学会珍惜生命的每一天。</span>
+      </p>
 
       <!-- Social Links -->
       <div class="flex justify-center gap-4">
@@ -67,10 +72,10 @@ const socialLinks = [
               href={link.href}
               target="_blank"
               rel="noopener noreferrer"
-              class="text-base-content/80 hover:text-primary transition-all duration-300 hover:scale-110"
+              class="btn btn-ghost btn-circle"
               aria-label={link.name}
             >
-              <Icon name={link.icon} class="h-6 w-6" />
+              <Icon name={link.icon} class="w-6 h-6" />
             </a>
           ))
         }
@@ -79,10 +84,7 @@ const socialLinks = [
 
     <!-- About Section -->
     <section class="prose prose-lg max-w-none mb-16">
-      <p>
-        Hello! I'm SunMaple, a student who loves programming and technology. I'm passionate about web development, open
-        source, and building cool projects. I'm currently studying Computer Science at a university in China.
-      </p>
+      <p>匆忙写的新站点，还没有来得及搬完家...</p>
     </section>
 
     <!-- Recent Blog Posts -->
