@@ -39,7 +39,9 @@ const { title, description, image } = Astro.props;
       <input id="drawer-nav" type="checkbox" class="drawer-toggle" />
       <div class="drawer-content flex flex-col min-h-screen">
         <!-- Navbar -->
-        <header class="sticky top-0 z-40 w-full backdrop-blur supports-backdrop-blur:bg-base-100/95">
+        <header
+          class="sticky top-0 z-40 w-full backdrop-blur supports-backdrop-blur:bg-base-100/95"
+        >
           <Navigation />
         </header>
 
@@ -51,7 +53,10 @@ const { title, description, image } = Astro.props;
       </div>
 
       <div class="drawer-side z-50">
-        <label for="drawer-nav" aria-label="close sidebar" class="drawer-overlay"></label>
+        <label
+          for="drawer-nav"
+          aria-label="close sidebar"
+          class="drawer-overlay"></label>
         <div class="menu p-4 w-80 min-h-full bg-base-200">
           <div class="flex justify-between items-center mb-4">
             <a href="/" class="text-xl font-bold">Your Name</a>
@@ -64,5 +69,22 @@ const { title, description, image } = Astro.props;
         </div>
       </div>
     </div>
+    <script>
+      // Handle mobile navigation
+      document.addEventListener("astro:page-load", () => {
+        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+        if (isMobile) {
+          document.querySelectorAll("a").forEach((link) => {
+            // Add data-astro-reload to internal links on mobile
+            if (
+              link.href.startsWith(window.location.origin) &&
+              !link.hasAttribute("data-astro-reload")
+            ) {
+              link.setAttribute("data-astro-reload", "");
+            }
+          });
+        }
+      });
+    </script>
   </body>
 </html>
